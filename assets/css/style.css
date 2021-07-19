@@ -8,3 +8,15 @@ body {
 background: -webkit-linear-gradient(to right, #fcb045, #eb3e3e, #0275d8);  /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to right, #fcb045, #eb3e3e, #0275d8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
+.badge-yellow{
+    color: #212529;
+    background-color: yellow;
+}
+.badge-orange{
+    color: #212529;
+    background-color:orange;
+}
+.badge-violet{
+    color: #212529;
+    background-color:violet;
+}
