@@ -15,22 +15,27 @@ function GetWeather() {
 
                 response.json().then(function (data) {
                     console.log(data);
-                    // console.log(response.data);
+                    console.log(response.data);
                     displayCityWeather(data);
                     displayForecat(city);
                 });
             } else {
-                alert("city not found");
+                $('#forecast').html("");
+               $('#forecast').removeClass("bg-white");
+                $('#city-weather').html("");
+                $('#city-weather').addClass('bg-white');
+                $('#city-weather').text("city not found");
             }
         })
         .catch(function (error) {
+          
             alert("Unable to connect to openweathermap.org");
         });
 
 
 }
 let displayCityWeather = function (data) {
-    $('#city-weather').empty();
+    $('#city-weather').html("");
     let h = $('<h4>');
     h.text(data.name + ' (' + moment.unix(data.dt+data.timezone).format("L") + ') '); //??? local date
     let icon = $('<img>');
@@ -45,7 +50,7 @@ let displayCityWeather = function (data) {
     $('#city-weather').append(pWind);
     pHum.text("Humidity: " + data.main.humidity + " %");
     $('#city-weather').append(pHum);
-    $('#city-weather').addClass('border border-2 bg-white');
+    $('#city-weather').addClass('bg-white');
     var apiURLuv = `https://api.openweathermap.org/data/2.5/uvi?appid=${key}&lat=${data.coord.lat}&lon=${data.coord.lon}`;
     fetch(apiURLuv)
         .then(function (response) {
@@ -58,7 +63,6 @@ let displayCityWeather = function (data) {
                     sUv.addClass('badge badge-succes');
                 } else if (dataUv.value > 3 && dataUv.value <= 6) {
                     sUv.addClass('badge badge-yellow');
-                    console.log('yellow');
                 } else if (dataUv.value > 6 && dataUv.value <= 8) {
                     sUv.addClass('badge badge-orange');
                 } else if (dataUv.value > 8 && dataUv.value <= 11) {
@@ -85,17 +89,17 @@ let displayForecat = function (city) {
         response.json().then(function(data){
            console.log(data);
            let h4 = $('<h4>');
-            h4.text("5-Day Forecast: Midday");
+            h4.text("5-Day Forecast: 3 pm");
 
-            $('#forecast').empty;
-            $('#forecast').addClass("mt-2 p-2 bg-white");
+            $('#forecast').html("");
+            $('#forecast').addClass("border-top border-3 p-3 bg-white");
            $('#forecast').append(h4);
            let mainDiv=$('<div>');
            mainDiv.addClass("card-group d-flex flex-wrap");
            for (i=0; i<data.list.length;i++){
-               if ((moment(data.list[i].dt_txt)).toString().indexOf("12:00:00")>0){
+               if ((moment(data.list[i].dt_txt)).toString().indexOf("15:00:00")>0){
                   let div=$('<div>');
-                  div.addClass("card bg-primary text-light m-2 p-2");
+                  div.addClass("card bg-forecast text-light m-2 p-2");
                   let h5=$('<h5>');
                   h5.text(moment(data.list[i].dt_txt).format("L"));
                   let icon = $('<img>');
