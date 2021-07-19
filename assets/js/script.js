@@ -17,7 +17,7 @@ function GetWeather() {
                     console.log(data);
                     // console.log(response.data);
                     displayCityWeather(data);
-                    displayFutureWeather(city);
+                    displayForecat(city);
                 });
             } else {
                 alert("city not found");
@@ -32,7 +32,7 @@ function GetWeather() {
 let displayCityWeather = function (data) {
     $('#city-weather').empty();
     let h = $('<h4>');
-    h.text(data.name + ' (' + moment.unix(data.dt).format("L") + ') '); //??? local date
+    h.text(data.name + ' (' + moment.unix(data.dt+data.timezone).format("L") + ') '); //??? local date
     let icon = $('<img>');
     icon.attr("src", "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png");
     icon.attr("width", 50);
@@ -77,7 +77,48 @@ let displayCityWeather = function (data) {
         });
 
 }
-let displayFutureWeather = function (city) {
+let displayForecat = function (city) {
+    var apiURLForecast= `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=${key}`
 
+    fetch(apiURLForecast)
+    .then(function(response){
+        response.json().then(function(data){
+           console.log(data);
+           let h4 = $('<h4>');
+            h4.text("5-Day Forecast: Midday");
+
+            $('#forecast').empty;
+            $('#forecast').addClass("mt-2 p-2 bg-white");
+           $('#forecast').append(h4);
+           let mainDiv=$('<div>');
+           mainDiv.addClass("card-group d-flex flex-wrap");
+           for (i=0; i<data.list.length;i++){
+               if ((moment(data.list[i].dt_txt)).toString().indexOf("12:00:00")>0){
+                  let div=$('<div>');
+                  div.addClass("card bg-primary text-light m-2 p-2");
+                  let h5=$('<h5>');
+                  h5.text(moment(data.list[i].dt_txt).format("L"));
+                  let icon = $('<img>');
+                  icon.addClass("mx-auto");
+                  icon.attr("src", "https://openweathermap.org/img/wn/" + data.list[i].weather[0].icon + "@2x.png");
+                  icon.attr("width", 75);
+                  div.append(h5);
+                  div.append(icon);
+                  let pTemp = $('<p>'), pWind = $('<p>'), pHum = $('<p>');
+                  pTemp.text("Temp: " + data.list[i].main.temp + " °F");
+                  div.append(pTemp);
+                  pWind.text("Wind: " + data.list[i].wind.speed + " MPH");
+                  div.append(pWind);
+                  pHum.text("Humidity: " + data.list[i].main.humidity + " %");
+                  div.append(pHum);
+                  mainDiv.append(div);
+                $('#forecast').append(mainDiv);
+            }
+           }
+        });
+    })    
+    .catch(function (error) {
+        alert("Unable to connect to openweathermap.org");
+    });
 }
 $('#search').click(GetWeather);
