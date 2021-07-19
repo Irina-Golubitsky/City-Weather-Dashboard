@@ -45,7 +45,7 @@ let displayCityWeather = function (data) {
     $('#city-weather').append(pWind);
     pHum.text("Humidity: " + data.main.humidity + " %");
     $('#city-weather').append(pHum);
-    $('#city-weather').addClass('border border-2 m-2');
+    $('#city-weather').addClass('border border-2 bg-white');
     var apiURLuv = `https://api.openweathermap.org/data/2.5/uvi?appid=${key}&lat=${data.coord.lat}&lon=${data.coord.lon}`;
     fetch(apiURLuv)
         .then(function (response) {
@@ -54,7 +54,6 @@ let displayCityWeather = function (data) {
                 pUv.text("UV Index: ");
                 let sUv = $('<span>');
                 sUv.text(dataUv.value);
-                var jsLang = 'jquery';
                 if (dataUv.value <= 3) {
                     sUv.addClass('badge badge-succes');
                 } else if (dataUv.value > 3 && dataUv.value <= 6) {
@@ -65,7 +64,6 @@ let displayCityWeather = function (data) {
                 } else if (dataUv.value > 8 && dataUv.value <= 11) {
                     sUv.addClass('badge badge-danger');
                 } else {
-
                     sUv.addClass('badge badge-violet');
 
                 }

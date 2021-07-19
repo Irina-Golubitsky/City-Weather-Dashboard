@@ -1,6 +1,11 @@
 body {
   margin: 20px;  
   text-align: left;
+  background-image:  url("../img/5099351.png");
+  background-size: cover;
+}
+.bg-white {
+    background-color: white;
 }
 .jumbotron {
     text-shadow: 1px 1px 2px #000000;
