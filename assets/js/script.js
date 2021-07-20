@@ -1,23 +1,19 @@
 let key = "29b980ef45f54cadca300e5a599d2a64";
 let city ="";
+let cityList=[];
 function GetWeather() {
     city = $('#city').val();
-    console.log(city);
-
-    displayCityWeather(city);
-    displayForecat(city);  
+    $('#city').val("");
+    displayCityWeather(city,1);
+    
 }
-let displayCityWeather = function (city) {
+let displayCityWeather = function (city,newSearch) {
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${key}`;
     console.log(apiUrl);
-    // make a get request to url
     fetch(apiUrl)
         .then(function (response) {
             // request was successful
             if (response.ok) {
-
-                // console.log(response);
-
                 response.json().then(function (data) {
                     $('#city-weather').empty();
                     let h = $('<h4>');
@@ -59,7 +55,12 @@ let displayCityWeather = function (city) {
 
                                 pUv.append(sUv);
                                 $('#city-weather').append(pUv);
+                                displayForecat(city);
+                                if (newSearch){
+                                    cityList.push(city);
+                                    localStorage.setItem('city-list', JSON.stringify(cityList));
                                 addCityButton(city);
+                                }
                             });
                         })
                         .catch(function (error) {
@@ -126,26 +127,26 @@ let displayForecat = function (city) {
         });
 }
 let addCityButton = function (city) {
-    var cityList = JSON.parse(localStorage.getItem('city-list')) || [];
-    if (cityList.length === 0) {
+    if (cityList.length === 1){
+        
         lineDiv = $('<div>');
         lineDiv.addClass("border-bottom border-2 mt-2");
         $('#first-row').append(lineDiv);
     }
-    cityList.push(city);
-    localStorage.setItem('city-list', JSON.stringify(cityList));
     cityButton = $('<button>');
     cityButton.addClass('btn btn-secondary mt-2 mb-2 btn-block');
     cityButton.text(city);
     cityButton.on('click', function (event) {
         event.preventDefault();
-        displayCityWeather(city);
-        displayForecat(city);
-    } );
+        displayCityWeather(city,0);})
     $('#first-row').append(cityButton);
 }
 
 
- 
-localStorage.removeItem('city-list');
+cityList = JSON.parse(localStorage.getItem('city-list')) || [];
+    for (i=0;i<cityList.length;i++){
+        addCityButton(cityList[i]);
+    }
+
+
 $('#search').click(GetWeather);
