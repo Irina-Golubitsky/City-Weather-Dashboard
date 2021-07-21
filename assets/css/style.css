@@ -7,12 +7,15 @@ body {
 .bg-white {
     background-color: white;
 }
+
+/* jumbitron style */
 .jumbotron {
     text-shadow: 1px 1px 2px #000000;
     background: #833ab4;  /* fallback for old browsers */
 background: -webkit-linear-gradient(to right, #fcb045, #eb3e3e, #0275d8);  /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to right, #fcb045, #eb3e3e, #0275d8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
+/* more colors for UV badges */
 .badge-yellow{
     color: #212529;
     background-color: yellow;
@@ -25,9 +28,9 @@ background: linear-gradient(to right, #fcb045, #eb3e3e, #0275d8); /* W3C, IE 10+
     color: #212529;
     background-color:violet;
 }
+/* style for 5 day forecast */
 .bg-forecast{
     background: #606c88;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to right, #3f4c6b, #606c88);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #3f4c6b, #606c88); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    
+    background: linear-gradient(to right, #3f4c6b, #606c88); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */   
 }
