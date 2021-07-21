@@ -8,8 +8,9 @@ A weather dashboard that uses the OpenWeather One Call API to show current weath
 * JavaScript powered by jQuery
 ## Description 
 
-Use this app to see the weather outlook for multiple cities. Search for a city and you will be presented with current and future conditions for that city and that city will be added to the search history. The weather info contains city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index. UV index is colored to indicate the risk of harm from unprotected sun exposure according to this table:
-![alt text](assets/img/uvIndex.png)
+Use this app to see the weather outlook for multiple cities. Search for a city and you will be presented with current and future conditions for that city and that city will be added to the search history. The weather info contains city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index. UV index is colored to indicate the risk of harm from unprotected sun exposure according to this table:<br />
+<img src="assets/img/uvIndex.png " width="350"  />
+
 
 
 ## Usage 
