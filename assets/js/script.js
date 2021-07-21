@@ -11,7 +11,6 @@ function GetWeather() {
 //  function display weather parameters: city name and boolean newSearch (add new city button or not)
 let displayCityWeather = function (city, newSearch) {
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${key}`;
-    console.log(apiUrl);
     fetch(apiUrl)
         .then(function (response) {
             // request was successful
@@ -21,10 +20,7 @@ let displayCityWeather = function (city, newSearch) {
                     $('#city-weather').empty();
                     let h = $('<h4>');
                     city = data.name;
-                    h.text(city + ' (' + moment.unix(data.dt + data.timezone).format() + ') ');
-                    console.log(city);
-                    console.log(data.dt);
-                    console.log(data.timezone);
+                    h.text(city + ' (' + moment.unix(data.dt + data.timezone).format("L") + ') ');
                     let icon = $('<img>');
                     icon.attr("src", "https://openweathermap.org/img/wn/" + data.weather[0].icon + "@2x.png");
                     icon.attr("width", 50);
@@ -44,7 +40,6 @@ let displayCityWeather = function (city, newSearch) {
                         .then(function (response) {
                             response.json().then(function (dataUv) {
                                 //show UV Index
-                                console.log(data);
                                 pUv = $('<p>');
                                 pUv.text("UV Index: ");
                                 let sUv = $('<span>');
@@ -100,8 +95,6 @@ let displayForecat = function (city) {
     fetch(apiURLForecast)
         .then(function (response) {
             response.json().then(function (data) {
-                console.log("5 days");
-                console.log(data);
                 let h4 = $('<h4>');
                 h4.text("5-Day Forecast:");
 
@@ -112,7 +105,6 @@ let displayForecat = function (city) {
                 mainDiv.addClass("card-group d-flex flex-wrap");
                 // calculate timezone difference to choose day hour for the forecast
                 timeIndex = 4 - parseInt(data.city.timezone / (3600 * 3));
-                console.log(timeIndex);
                 // show forecast for each day
                 for (i = timeIndex; i < data.list.length; i += 8) {
                    let div = $('<div>');
